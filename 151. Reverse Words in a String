@@ -1,0 +1,39 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        stack<char> st;
+        string res;
+        char ch;
+        for(int i=s.size()-1;i>=1;i--)
+        {
+            
+            if(s[i]!=' '){
+                st.push(s[i]);
+            }
+            else if(s[i-1]==' '){
+                continue;
+            }
+            else{
+                while(!st.empty())
+               { 
+                    ch=st.top();
+                    st.pop();
+                    res.append(1,ch);
+               }
+               if(res.size()!=0)
+               res.append(1,' ');
+            }
+            
+        }
+                if(s[0]!=' ')
+                st.push(s[0]);
+                while(!st.empty())
+               { 
+                    ch=st.top();
+                    st.pop();
+                    res.append(1,ch);
+               }
+    return res;
+
+    }
+};
