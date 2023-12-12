@@ -1,0 +1,29 @@
+class Solution {
+public:
+
+   long f(vector<int>& piles, int mid,int h){
+        long tot=0;
+        for(int i=0;i<piles.size();i++){
+            tot += ceil((double)piles[i]/(double)mid);
+        }
+        return tot;
+    }
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int l=1,mi=INT_MIN;
+        for(int i: piles){
+            mi = max(mi,i);
+        }
+        int high = mi;
+        int mid;
+        
+        while(l<=high){
+            mid =(l+high)/2;
+           
+            if(f(piles,mid,h)>h)
+            l = mid+1;
+            else
+            high = mid-1;
+        }
+        return l;
+    }
+};
