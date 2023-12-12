@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<string> s;
+    vector<string> v={"abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    void f(string digits, string m){
+         
+        if(digits.size()==0){
+            s.push_back(m);
+            return;
+        }   
+         string k = v[digits[0]-50];
+        for(int i=0;i<k.size();i++){
+           
+            f(digits.substr(1),m+k[i]);   ///imp   
+        }
+    }
+    vector<string> letterCombinations(string digits) {
+        if(digits.size()==0)
+        return s;
+        string m=""; 
+       f(digits, m);
+        return s;
+    }
+};
