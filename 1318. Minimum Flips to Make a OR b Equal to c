@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int minFlips(int a, int b, int c) {
+        int f =0;
+        while(c>0 || b>0 || a>0){
+        if(c&1==1){
+            if((a&1) +(b&1) == 0)
+             f++;
+
+        }
+        else{
+            f = f+ (a&1) +(b&1);
+        }
+c>>=1;
+b>>=1;
+a>>=1;
+        }
+return f;
+    }
+};
