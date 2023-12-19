@@ -1,0 +1,20 @@
+class SmallestInfiniteSet {
+public:
+    set<int> q;
+    SmallestInfiniteSet() {
+        for(int i=1;i<=1000;i++)
+        q.insert(i);
+    }
+    
+    int popSmallest() {
+        int n=  *q.begin();
+        q.erase(n);
+        return n;
+    }
+    
+    void addBack(int num) {
+        
+        if(num>0 && q.find(num)== q.end())
+        q.insert(num);
+    }
+};
