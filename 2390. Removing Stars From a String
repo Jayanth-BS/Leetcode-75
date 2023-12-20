@@ -1,0 +1,36 @@
+#include <string>
+#include <stack>
+#include <algorithm>
+
+class Solution {
+public:
+    std::string removeStars(std::string s) {
+        std::stack<char> st;
+        std::string k;
+        int m = 0;
+
+        for (int i = 0; i < s.size(); i++) {
+            st.push(s[i]);
+        }
+
+        while (!st.empty()) {
+            if (st.top() == '*') {
+                m = 0;
+                while (!st.empty() && st.top() == '*') {
+                    m++;
+                    st.pop();
+                }
+                while (m > 0) {
+                    st.pop();
+                    m--;
+                }
+            } else {
+                k += st.top();
+                st.pop();
+            }
+        }
+
+        std::reverse(k.begin(), k.end());
+        return k;
+    }
+};
