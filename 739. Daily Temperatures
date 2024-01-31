@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& t) {
+        int n = t.size();
+        vector<int> ind;
+        vector<int> val;
+        vector<int> ans(n,0);
+        ind.push_back(0);
+        val.push_back(t[0]);
+        for(int i=1;i<n;i++){
+            while(t[i]>val.back()){
+                ans[ind.back()]= i-ind.back();
+                val.pop_back();
+                ind.pop_back();
+                if(val.empty())
+                break;
+            }
+            ind.push_back(i);
+            val.push_back(t[i]);
+        }
+        return ans;
+    }
+};
