@@ -1,26 +1,16 @@
 class Solution {
 public:
     vector<vector<int>> findDifference(vector<int>& nums1, vector<int>& nums2) {
-        vector<vector<int>> answer;
-        unordered_map<int, int> map1, map2;
-        for (auto i : nums1)
-            map1[i]++;
-        for (auto i : nums2)
-            map2[i]++;
-        vector<int> temp1;
-        for (auto i : nums1){
-            if (map1[i] > 0 && map2.count(i) == 0)
-                temp1.push_back(i);
-            map1[i] = 0;
-        }
-        vector<int> temp2;
-        for (auto i : nums2){
-            if (map2[i] > 0 && map1.count(i) == 0)
-                temp2.push_back(i);
-            map2[i] = 0;
-        }
-        answer.push_back(temp1);
-        answer.push_back(temp2);
-        return answer;
+       unordered_set<int> s1(nums1.begin(),nums1.end()), s2(nums2.begin(),nums2.end());
+       vector<int> v1,v2;
+       for(int i:s1){
+           if(s2.count(i)==0)
+            v1.push_back(i);
+       }
+        for(int i:s2){
+           if(s1.count(i)==0)
+            v2.push_back(i);
+       }
+       return {v1,v2};
     }
 };
