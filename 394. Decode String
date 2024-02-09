@@ -1,48 +1,38 @@
 class Solution {
 public:
     string decodeString(string s) {
-        stack<string> st;
-        for(auto ch: s){
-            if(ch==']'){
-                string stringtorepeat="";
-                while(!st.empty()&& st.top()!="["){
-                    string top=st.top();
-                    stringtorepeat+=top;
+        stack<char> st;
+        string res="";
+        for(int i=0;i<s.size();i++){
+            if(s[i] != ']'){                              // push until we get ']'
+                st.push(s[i]);
+            }
+            else{                                                                          
+                 string m="";
+                while(st.top()!='['){                     //pop until i we get ']' and thereby record the string
+                    m+= st.top();
                     st.pop();
                 }
-                st.pop();//st.top has '[' this one the top so pop
-                //now we will take number of time we want to repeat 
-                string num="";
-                while(!st.empty() && isdigit(st.top()[0])){
-                    string top=st.top();
-                    num+=st.top();
+                st.pop();
+                string num = "";                            // record the number
+                while(!st.empty() && isdigit(st.top())){
+                    num += st.top();
                     st.pop();
                 }
-                // reverse 321 to 123
-                reverse(num.begin(),num.end());
-                int n=stoi(num);
-            
-
-                //final decoding 
-                string currdecode="";
-                while(n--){
-                    currdecode+=stringtorepeat;
+                reverse(num.begin(), num.end());
+                int k = stoi(num);
+                for(int i=0;i<k;i++){
+                    for(int j=m.size()-1;j>=0;j--){           // Iterate so many times so that we push the string into stack for the given number of times
+                        st.push(m[j]);
+                    }
                 }
-                st.push(currdecode);
-            }
-            else 
-            {
-                string temp(1,ch);///convert char to string
-                st.push(temp);
-            }
+            }   
         }
-        ///ye mujhe sari stirng dedega abh m inko final rev karke ans return kardunga 
-                string ans="";
-                while(!st.empty()){
-                    ans+=st.top();
-                    st.pop();
-                }
-                reverse(ans.begin(),ans.end());
-                return ans;
+        while(!st.empty()){
+            res += st.top();                                     // finally pop the contents of the stack and add it to the string
+            st.pop();
+        }
+        reverse(res.begin(), res.end());                            // REverse the string
+        return res;
     }
 };
