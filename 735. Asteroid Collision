@@ -1,3 +1,76 @@
+//One way-using stack
+
+class Solution {
+public:
+    vector<int> asteroidCollision(vector<int>& a) {
+        stack<int> s;
+        
+        for(int i=0;i<a.size();i++){
+            while(!s.empty() && s.top()>0 && a[i]<0){
+                int sum = a[i] + s.top();
+                if(sum < 0 )
+                {
+                    s.pop();
+                }
+                else if(sum ==0){
+                    a[i]=0;
+                    s.pop();
+                }
+                else {
+                    a[i]=0;
+                }
+            }
+            if(a[i]!=0)
+                s.push(a[i]);
+        }
+        int n = s.size();
+        vector<int> v;
+        while(!s.empty()){
+            v.push_back(s.top());
+            s.pop();
+        }
+        reverse(v.begin(),v.end());
+        return v;
+    }
+};
+
+
+//-------------------------------------------------------------------------------------------
+
+//Another way--space optimised without stack
+
+class Solution {
+public:
+    vector<int> asteroidCollision(vector<int>& a) {
+        vector<int> s;
+        for(int i=0;i<a.size();i++){
+            while(!s.empty() && s.back()>0 && a[i]<0){
+                int sum = a[i] + s.back();
+                if(sum < 0 )
+                {
+                    s.pop_back();
+                }
+                else if(sum ==0){
+                    a[i]=0;
+                    s.pop_back();
+                }
+                else {
+                    a[i]=0;
+                }
+            }
+            if(a[i]!=0)
+                s.push_back(a[i]);
+        }
+        
+        return s;
+    }
+};
+
+
+//-------------------------------------------------------------------------------------------
+
+
+//Yet Another way
 class Solution {
 public:
     vector<int> asteroidCollision(vector<int>& asteroids) {
