@@ -1,15 +1,23 @@
 class Solution {
 public:
     int specialArray(vector<int>& nums) {
-       for(int i=0;i<=*max_element(nums.begin(),nums.end());i++){
-        int f = i,c=0;    
-        for(int j=0;j<nums.size();j++){
-            if(nums[j]>=f)
-            c++;
+        int l = 0, h = nums.size();
+        sort(nums.begin(),nums.end());
+        while(l<=h){
+            int mid = (l+h)/2, c=0;
+            for(auto i: nums){
+                if(i>=mid){
+                    c++;
+                }
+            }
+            if(c == mid)
+            return c;
+
+            else if(c>mid)
+            l++;
+            else
+            h--; 
         }
-        if(c == f)
-        return c;
-       }
         return -1;
     }
 };
