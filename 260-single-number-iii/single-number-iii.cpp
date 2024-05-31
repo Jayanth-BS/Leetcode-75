@@ -1,16 +1,22 @@
 class Solution {
 public:
     vector<int> singleNumber(vector<int>& nums) {
-        if(nums.size() == 2)
-        return nums;
-        vector<int> ans;
-        unordered_map<int,int> map;
-        for(auto i: nums)
-        map[i]++;
-        for(auto i : map){
-            if(i.second == 1)
-            ans.push_back(i.first);
-    }
-    return ans;
+        long xorAll = 0;
+        for (int num : nums) {
+            xorAll ^= num;
+        }
+
+        long setBit = xorAll & -xorAll;
+        int a = 0, b = 0;
+
+        for (int num : nums) {
+            if (num & setBit) {
+                a ^= num;
+            } else {
+                b ^= num;
+            }
+        }
+
+        return {a, b};
     }
 };
