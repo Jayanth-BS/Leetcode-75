@@ -1,14 +1,24 @@
 class Solution {
 public:
     void sortColors(vector<int>& nums) {
-        for(int i=0;i<nums.size()-1;i++){
-            for(int j=i+1;j<nums.size();j++){
-                if(nums[i]>nums[j]){
-                    int temp = nums[i];
-                    nums[i] = nums[j];
-                    nums[j] = temp;
-                }
+        //Dutch flag algorithm
+        const char red=0,white=1,blue=2;
+        int l=0,m =0,r=nums.size()-1;
+        while(m<=r){
+            switch(nums[m]){
+                case red:
+                swap(nums[l],nums[m]);
+                m++;
+                l++;
+                break;
+                case white:
+                m++;
+                break;
+                case blue:
+                swap(nums[m],nums[r]);
+                r--;
+                break;
             }
-        }
+        }   
     }
 };
