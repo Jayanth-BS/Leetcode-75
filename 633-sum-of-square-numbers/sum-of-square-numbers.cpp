@@ -2,11 +2,16 @@
 class Solution {
 public:
     bool judgeSquareSum(int c) {
-        for (long long i = 0; i <= sqrt(c); i++) {
-            int j = sqrt(c - i * i);
-            if (i * i + j * j == c)
-                return true;
+        long long i=0,j=sqrt(c);
+        while(i<=j){
+            long long tot = i*i+j*j;
+            if(tot>c)
+            j--;
+            else if (tot<c)
+            i++;
+            else
+            return 1;
         }
-        return false;
+        return 0;
     }
 };
