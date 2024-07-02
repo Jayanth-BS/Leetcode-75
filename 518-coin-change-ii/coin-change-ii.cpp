@@ -2,19 +2,22 @@ class Solution {
 public: // tabulation
     int change(int amt, vector<int>& coins) {
         vector<vector<int>> dp(coins.size()+1,vector<int>(amt+1,0));
+        vector<int> prev(amt+1,0);
+        vector<int> cur(amt+1,0);
         for(int t =0;t<=amt;t++)
-        dp[0][t] = (t%coins[0]==0);
+        prev[t] = (t%coins[0]==0);
 
         for(int i=1;i<coins.size();i++){
             for(int j = 0;j<=amt;j++){
-                    int ntake = dp[i-1][j];
+                    int ntake = prev[j];
                     int  take =0;
                     if(j>=coins[i])
-                        take= dp[i][j-coins[i]];
-                   dp[i][j] = take + ntake;
+                        take= cur[j-coins[i]];
+                   cur[j] = take + ntake;
             }
+            prev = cur;
         }
-        return dp[coins.size()-1][amt];
+        return prev[amt];
     }
 };
 
