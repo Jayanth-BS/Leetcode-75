@@ -25,16 +25,22 @@ public:
         }
         return true;
     }
-    void solve(int col,vector<string> &board,vector<vector<string>> &ans,int n){
+    void solve(int col,vector<string> &board,vector<vector<string>> &ans,int n,vector<int> &leftrow,vector<int> &updiag,vector<int> &downdiag){
         if(col == n)
         {
             ans.push_back(board);
             return;
         }
         for(int row=0;row<n;row++){
-            if(isSafe(board,row,col)){
+            if(leftrow[row] == 0 && updiag[row+col] == 0 && downdiag[n-1 + col-row]==0){
                 board[row][col] = 'Q';
-                solve(col+1,board,ans,n);
+                leftrow[row] = 1;
+                updiag[row+col] = 1;
+                downdiag[n-1 + col-row]=1;
+                solve(col+1,board,ans,n, leftrow,updiag, downdiag);
+               leftrow[row] = 0;
+                updiag[row+col] = 0;
+                downdiag[n-1 + col-row]=0;
                 board[row][col] ='.';
             }
         }
@@ -45,7 +51,10 @@ public:
         string s(n,'.');
         for(int i=0;i<n;i++)
             board[i] = s;
-        solve(0,board,ans,n);
+        vector<int> leftrow(n,0);
+        vector<int> updiag(2*n-1,0);
+        vector<int> downdiag(2*n-1,0);
+        solve(0,board,ans,n,leftrow,updiag,downdiag);
         return ans;
     }
 };
