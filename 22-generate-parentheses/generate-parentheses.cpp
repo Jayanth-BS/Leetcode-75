@@ -1,32 +1,23 @@
 class Solution {
 public:
-    bool check(string s){
-        stack<int> st;
-        if(s[0] == ')') return false;
-        for(int i=0;i<s.size();i++){
-            if(s[i] == '('){
-                st.push(s[i]);
-            }
-            else{
-                if(st.empty()) return false;
-                st.pop();
-            }
-        }
-        return st.empty();
-    }
-    void f(int i,int n, vector<string>& ans, string s){
-        if(i == 2*n){
-            if(check(s))
+    void f(int tot,int open,int close, vector<string>& ans, string s){
+        if(s.size() == tot){
             ans.push_back(s);
-            return ;
+            return;
         }
-        f(i+1,n,ans,s+'(');
-        f(i+1,n,ans,s+')');
+        if(open>close){
+            f(tot,open,close+1,ans,s+')');
+            if(open<tot/2){
+                f(tot,open+1,close, ans,s+'(');
+            }
+        }
+        else{
+        f(tot,open+1,close,ans,s+'(');
+        }
     }
     vector<string> generateParenthesis(int n) {
         vector<string> ans;
-        string s = "";
-        f(0,n,ans,s);
+        f(2*n,0,0,ans,"");
         return ans;
     }
 };
