@@ -25,7 +25,7 @@ public:
                     c++;
                 }
             }
-            if(c<= prev){
+            if(c <= prev){
                 city = i;
                 prev = c;
             }
