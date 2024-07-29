@@ -19,6 +19,7 @@ public:
                 if(rating[j]>rating[i])
                 rl++; 
             }
+            
             ans += ls*rl +rs*ll;
         }
         return ans;
