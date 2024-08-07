@@ -1,16 +1,18 @@
 class Solution {
 public:
-    int t[30004][2];
+    int ahead[2], cur[2];
     int maxProfit(vector<int>& prices) {
-        memset(t,-1,sizeof(t));
+        memset(ahead,0,sizeof(ahead));
+        memset(cur,0,sizeof(cur));
         int n = prices.size();
-        t[n][0]=0;
-        t[n][1]=0;
+        ahead[0] = 0;
+        ahead[1] = 0;
         for(int i = n-1;i>=0;i--){
-                int profit=0;
-                t[i][1] = max(-prices[i] + t[i+1][0], 0 + t[i+1][1]); 
-                t[i][0] = max(prices[i] + t[i+1][1], 0 + t[i+1][0]);
-        }
-        return t[0][1];
+            cur[1] = max(-prices[i] + ahead[0], 0 + ahead[1]);
+            cur[0] = max(prices[i] +ahead[1], 0 + ahead[0]);
+            ahead[0] = cur[0] ;
+            ahead[1] = cur[1];
+        }    
+        return ahead[1];
     }
 };
